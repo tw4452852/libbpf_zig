@@ -26,7 +26,7 @@ pub fn build(b: *std.Build) void {
     };
     libbpf.linkLibC();
     libbpf.addCSourceFiles(.{
-        .dependency = upstream,
+        .root = upstream.path(""),
         .files = &.{
             "src/bpf.c",
             "src/btf.c",
