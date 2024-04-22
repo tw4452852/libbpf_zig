@@ -85,10 +85,7 @@ pub fn build(b: *std.Build) void {
         .flags = &cflags,
     });
 
-    libbpf.installHeadersDirectoryOptions(.{
-        .source_dir = upstream.path("src"),
-        .install_dir = .header,
-        .install_subdir = "",
+    libbpf.installHeadersDirectory(upstream.path("src"), "", .{
         .include_extensions = &.{
             "bpf.h",
             "libbpf.h",
