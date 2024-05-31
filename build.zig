@@ -70,7 +70,7 @@ pub fn build(b: *std.Build) void {
         if (need_to_patch) {
             const patch_cmd = b.addSystemCommand(&.{ "patch", "-p1", "-o" });
             const patched_file = patch_cmd.addOutputFileArg("libbpf_patched.c");
-            patch_cmd.setStdIn(.{ .lazy_path = .{ .path = "0001-temporary-WA-for-invalid-BTF-info-generated-by-Zig.patch" } });
+            patch_cmd.setStdIn(.{ .lazy_path = b.path("0001-temporary-WA-for-invalid-BTF-info-generated-by-Zig.patch") });
             patch_cmd.setCwd(.{ .dependency = .{ .dependency = upstream, .sub_path = "" } });
             patch_cmd.expectExitCode(0);
             libbpf.step.dependOn(&patch_cmd.step);
