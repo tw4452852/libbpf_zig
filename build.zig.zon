@@ -20,6 +20,5 @@
         "README.md",
         "build.zig",
         "build.zig.zon",
-        "0001-temporary-WA-for-invalid-BTF-info-generated-by-Zig.patch",
     },
 }
