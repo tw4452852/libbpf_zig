@@ -47,6 +47,7 @@ pub fn build(b: *std.Build) void {
             "src/usdt.c",
             "src/zip.c",
             "src/elf.c",
+            "src/features.c",
         },
         .flags = &cflags,
     });

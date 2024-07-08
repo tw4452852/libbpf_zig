@@ -1,10 +1,10 @@
 .{
     .name = "libbpf",
-    .version = "1.3.0-4",
+    .version = "1.4.3",
     .dependencies = .{
         .upstream = .{
-            .url = "https://github.com/libbpf/libbpf/archive/refs/tags/v1.3.0.tar.gz",
-            .hash = "1220516a3ee97473c4a5bc1cb132cb06e1b63de946f0fae6b0ee54f9a3c204a397a6",
+            .url = "https://github.com/libbpf/libbpf/archive/refs/tags/v1.4.3.tar.gz",
+            .hash = "1220e38e6f6d86522ca3bc0062c2a2f7b575670bf5d3468f7ef2b13afc93b88bc134",
         },
         .libz = .{
             .url = "https://github.com/allyourcodebase/zlib/archive/refs/tags/1.3.1-3.tar.gz",
