@@ -48,6 +48,8 @@ pub fn build(b: *std.Build) void {
             "src/zip.c",
             "src/elf.c",
             "src/features.c",
+            "src/btf_iter.c",
+            "src/btf_relocate.c",
         },
         .flags = &cflags,
     });
