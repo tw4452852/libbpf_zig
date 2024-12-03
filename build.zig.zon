@@ -1,6 +1,6 @@
 .{
     .name = "libbpf",
-    .version = "1.5.0",
+    .version = "1.5.0-1",
     .dependencies = .{
         .upstream = .{
             .url = "https://github.com/libbpf/libbpf/archive/refs/tags/v1.5.0.tar.gz",
