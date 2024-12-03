@@ -85,5 +85,12 @@ pub fn build(b: *std.Build) void {
             "usdt.bpf.h",
         },
     });
+    libbpf.installHeadersDirectory(upstream.path("include/uapi/linux"), "linux", .{
+        .include_extensions = &.{
+            "bpf.h",
+            "bpf_common.h",
+            "btf.h",
+        },
+    });
     b.installArtifact(libbpf);
 }
