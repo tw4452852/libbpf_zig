@@ -1,5 +1,5 @@
 .{
-    .name = "libbpf",
+    .name = .libbpf,
     .version = "1.5.0-1",
     .dependencies = .{
         .upstream = .{
@@ -21,4 +21,5 @@
         "build.zig",
         "build.zig.zon",
     },
+    .fingerprint = 0xb44e6e3d9cba8c7,
 }
