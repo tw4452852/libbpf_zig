@@ -1,18 +1,18 @@
 .{
     .name = .libbpf,
-    .version = "1.5.0-1",
+    .version = "1.5.0-2",
     .dependencies = .{
         .upstream = .{
             .url = "https://github.com/libbpf/libbpf/archive/refs/tags/v1.5.0.tar.gz",
-            .hash = "1220c91bb3f01e3d811d22308d40cdaf15a53d618cd241bb8b71d557eb4a52ff52a3",
+            .hash = "N-V-__8AAFtHQgDJG7PwHj2BHSIwjUDNrxWlPWGM0kG7i3HV",
         },
         .libz = .{
             .url = "https://github.com/allyourcodebase/zlib/archive/refs/tags/1.3.1.tar.gz",
-            .hash = "122034ab2a12adf8016ffa76e48b4be3245ffd305193edba4d83058adbcfa749c107",
+            .hash = "zlib-1.3.1-AAAAACEMAAA0qyoSrfgBb_p25ItL4yRf_TBRk-26TYMF",
         },
         .elfutils = .{
-            .url = "https://github.com/tw4452852/elfutils/archive/refs/tags/0.190.0-4.tar.gz",
-            .hash = "1220cbe3364fe97ec8d3704d0d30b69418ae955a776f43cc54e5471b4d3d44baeabb",
+            .url = "https://github.com/tw4452852/elfutils/archive/refs/tags/0.190.0-5.tar.gz",
+            .hash = "libelf-0.190.0-5-vOOfyfbDAADBXjq7bs5FjMtFUFS_NyQ7apUEZXieSLRl",
         },
     },
     .paths = .{
