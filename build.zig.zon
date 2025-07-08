@@ -3,8 +3,8 @@
     .version = "1.5.0-2",
     .dependencies = .{
         .upstream = .{
-            .url = "https://github.com/libbpf/libbpf/archive/refs/tags/v1.5.0.tar.gz",
-            .hash = "N-V-__8AAFtHQgDJG7PwHj2BHSIwjUDNrxWlPWGM0kG7i3HV",
+            .url = "https://github.com/libbpf/libbpf/archive/refs/tags/v1.5.1.tar.gz",
+            .hash = "N-V-__8AANZHQgAwv8ZA0c_NRDHlI4W1dfnuGiR-4Uajj1hq",
         },
         .libz = .{
             .url = "https://github.com/allyourcodebase/zlib/archive/refs/tags/1.3.1.tar.gz",
