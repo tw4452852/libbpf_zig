@@ -12,19 +12,11 @@ jobs:
     runs-on: ${{matrix.os}}
     steps:
       - uses: actions/checkout@v3
-      - uses: mlugg/setup-zig@v1
+      - uses: mlugg/setup-zig@v2
         with:
           version: master
+      - run: zig fmt --check .
       - run: zig build -Dtarget=aarch64-linux-musl
       - run: zig build -Dtarget=x86_64-linux-musl
       - run: zig build -Dtarget=aarch64-linux-gnu
       - run: zig build -Dtarget=x86_64-linux-gnu
-
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: mlugg/setup-zig@v1
-        with:
-          version: master
-      - run: zig fmt --check *.zig build.zig.zon
