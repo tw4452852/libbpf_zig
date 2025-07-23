@@ -10,9 +10,9 @@
             .url = "https://github.com/allyourcodebase/zlib/archive/8a8161babd4b79ea47d5a5976337a96ac4a5666b.tar.gz",
             .hash = "zlib-1.3.1-ZZQ7lbYMAAAuaZnFj2675ah508w1Oc-EuY1V1cWJka2C",
         },
-        .elfutils = .{
-            .url = "https://github.com/tw4452852/elfutils/archive/refs/tags/0.190.0-6.tar.gz",
-            .hash = "libelf-0.190.0-6-vOOfyQ_EAABYUd31oeM-KICBkNyJQpb_WbEhb0vtL1Zm",
+        .libelf = .{
+            .url = "https://github.com/tw4452852/libelf_zig/archive/refs/tags/0.193.0.tar.gz",
+            .hash = "libelf-0.193.0-vOOfydWhAABgv4e6EdLiyhuul10bpuywsynY4RSp4zwM",
         },
     },
     .paths = .{

@@ -9,22 +9,25 @@ pub fn build(b: *std.Build) void {
         .target = target,
         .optimize = optimize,
     });
-    const elfutils_dep = b.dependency("elfutils", .{
+    const libelf_dep = b.dependency("libelf", .{
         .target = target,
         .optimize = optimize,
     });
 
-    const libbpf = b.addStaticLibrary(.{
+    const libbpf = b.addLibrary(.{
         .name = "bpf",
-        .target = target,
-        .optimize = optimize,
+        .root_module = b.createModule(.{
+            .target = target,
+            .optimize = optimize,
+            .link_libc = true,
+        }),
+        .linkage = .static,
     });
 
     const cflags = [_][]const u8{
         "-D_LARGEFILE64_SOURCE",
         "-D_FILE_OFFSET_BITS=64",
     };
-    libbpf.linkLibC();
     libbpf.addCSourceFiles(.{
         .root = upstream.path(""),
         .files = &.{
@@ -66,7 +69,7 @@ pub fn build(b: *std.Build) void {
         .sub_path = "src",
     } });
     libbpf.linkLibrary(libz_dep.artifact("z"));
-    libbpf.linkLibrary(elfutils_dep.artifact("elf"));
+    libbpf.linkLibrary(libelf_dep.artifact("elf"));
 
     libbpf.installHeadersDirectory(upstream.path("src"), "", .{
         .include_extensions = &.{
