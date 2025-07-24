@@ -20,6 +20,7 @@ pub fn build(b: *std.Build) void {
             .target = target,
             .optimize = optimize,
             .link_libc = true,
+            .sanitize_c = .off, // offsetofend macro in libbpf will trigger ubsan...
         }),
         .linkage = .static,
     });
