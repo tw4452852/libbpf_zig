@@ -20,3 +20,4 @@ jobs:
       - run: zig build -Dtarget=x86_64-linux-musl
       - run: zig build -Dtarget=aarch64-linux-gnu
       - run: zig build -Dtarget=x86_64-linux-gnu
+      - run: zig build test

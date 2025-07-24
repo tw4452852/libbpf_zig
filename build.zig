@@ -96,4 +96,36 @@ pub fn build(b: *std.Build) void {
         },
     });
     b.installArtifact(libbpf);
+
+    // testing
+    const prog = b.addObject(.{
+        .name = "test",
+        .root_module = b.createModule(.{
+            .root_source_file = b.path("test.bpf.zig"),
+            .target = b.resolveTargetQuery(.{
+                .cpu_arch = .bpfel,
+                .os_tag = .freestanding,
+            }),
+            .optimize = .ReleaseFast, // some assertions in debug mode are blocked by bpf verifier
+            .strip = false, // Otherwise BTF sections will be stripped
+        }),
+    });
+
+    const options = b.addOptions();
+    options.addOptionPath("path", prog.getEmittedBin());
+    const exe_test = b.addTest(.{
+        .root_module = b.createModule(.{
+            .root_source_file = b.path("test.zig"),
+            .target = target,
+            .optimize = optimize,
+            .link_libc = true,
+        }),
+    });
+    exe_test.root_module.addOptions("@bpf_prog", options);
+    exe_test.linkLibrary(libbpf);
+
+    const test_step = b.step("test", "Build and run all unit tests");
+    exe_test.setExecCmd(&.{ "sudo", null });
+    const run_unit_test = b.addRunArtifact(exe_test);
+    test_step.dependOn(&run_unit_test.step);
 }
