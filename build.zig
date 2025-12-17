@@ -29,7 +29,7 @@ pub fn build(b: *std.Build) void {
         "-D_LARGEFILE64_SOURCE",
         "-D_FILE_OFFSET_BITS=64",
     };
-    libbpf.addCSourceFiles(.{
+    libbpf.root_module.addCSourceFiles(.{
         .root = upstream.path(""),
         .files = &.{
             "src/bpf.c",
@@ -57,20 +57,20 @@ pub fn build(b: *std.Build) void {
         },
         .flags = &cflags,
     });
-    libbpf.addIncludePath(.{ .dependency = .{
+    libbpf.root_module.addIncludePath(.{ .dependency = .{
         .dependency = upstream,
         .sub_path = "include",
     } });
-    libbpf.addIncludePath(.{ .dependency = .{
+    libbpf.root_module.addIncludePath(.{ .dependency = .{
         .dependency = upstream,
         .sub_path = "include/uapi",
     } });
-    libbpf.addIncludePath(.{ .dependency = .{
+    libbpf.root_module.addIncludePath(.{ .dependency = .{
         .dependency = upstream,
         .sub_path = "src",
     } });
-    libbpf.linkLibrary(libz_dep.artifact("z"));
-    libbpf.linkLibrary(libelf_dep.artifact("elf"));
+    libbpf.root_module.linkLibrary(libz_dep.artifact("z"));
+    libbpf.root_module.linkLibrary(libelf_dep.artifact("elf"));
 
     libbpf.installHeadersDirectory(upstream.path("src"), "", .{
         .include_extensions = &.{
@@ -123,7 +123,7 @@ pub fn build(b: *std.Build) void {
         }),
     });
     exe_test.root_module.addOptions("@bpf_prog", options);
-    exe_test.linkLibrary(libbpf);
+    exe_test.root_module.linkLibrary(libbpf);
 
     const test_step = b.step("test", "Build and run all unit tests");
     exe_test.setExecCmd(&.{ "sudo", null });
