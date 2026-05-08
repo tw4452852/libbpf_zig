@@ -3,8 +3,8 @@
     .version = "1.6.1-1",
     .dependencies = .{
         .upstream = .{
-            .url = "https://github.com/libbpf/libbpf/archive/refs/tags/v1.6.1.tar.gz",
-            .hash = "N-V-__8AAJz1QgAVqmXHWmjGhAyb2mQK8PrtsfvTM-Cd2GXh",
+            .url = "https://github.com/libbpf/libbpf/archive/refs/tags/v1.7.0.tar.gz",
+            .hash = "N-V-__8AAJb6QwBAkBOVjg7v-0jgJT_ABV0UBSdxTjcmmEy4",
         },
         .libz = .{
             .url = "https://github.com/tw4452852/zlib/archive/571258880940c5256315e712fde06024af483fd8.tar.gz",
