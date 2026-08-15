@@ -1,11 +1,9 @@
 const std = @import("std");
 const print = std.debug.print;
-const libbpf = @cImport({
-    @cInclude("libbpf.h");
-});
+const libbpf = @import("c");
 
 test {
-    const path = try std.testing.allocator.dupeZ(u8, @import("@bpf_prog").path);
+    const path = try std.testing.allocator.dupeSentinel(u8, @import("@bpf_prog").path, 0);
     defer std.testing.allocator.free(path);
     const obj = libbpf.bpf_object__open(path);
     if (obj == null) {

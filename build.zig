@@ -111,6 +111,13 @@ pub fn build(b: *std.Build) void {
         }),
     });
 
+    const translate_c = b.addTranslateC(.{
+        .root_source_file = b.path("c.h"),
+        .target = target,
+        .optimize = optimize,
+    });
+    translate_c.addIncludePath(libbpf.getEmittedIncludeTree());
+
     const options = b.addOptions();
     options.addOptionPath("path", prog.getEmittedBin());
     const exe_test = b.addTest(.{
@@ -119,13 +126,19 @@ pub fn build(b: *std.Build) void {
             .target = target,
             .optimize = optimize,
             .link_libc = true,
+            .imports = &.{
+                .{
+                    .name = "c",
+                    .module = translate_c.createModule(),
+                },
+            },
         }),
     });
     exe_test.root_module.addOptions("@bpf_prog", options);
     exe_test.root_module.linkLibrary(libbpf);
 
     const test_step = b.step("test", "Build and run all unit tests");
-    exe_test.setExecCmd(&.{ "sudo", null });
-    const run_unit_test = b.addRunArtifact(exe_test);
+    const run_unit_test = b.addSystemCommand(&.{"sudo"});
+    run_unit_test.addArtifactArg2(exe_test, .{});
     test_step.dependOn(&run_unit_test.step);
 }
