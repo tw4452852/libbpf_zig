@@ -5,7 +5,7 @@ pub fn build(b: *std.Build) void {
     const optimize = b.standardOptimizeOption(.{});
 
     const upstream = b.dependency("upstream", .{});
-    const libz_dep = b.dependency("libz", .{
+    const libz_dep = b.dependency("zlib", .{
         .target = target,
         .optimize = optimize,
     });
