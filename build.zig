@@ -98,18 +98,17 @@ pub fn build(b: *std.Build) void {
     b.installArtifact(libbpf);
 
     // testing
-    const prog = b.addObject(.{
-        .name = "test",
-        .root_module = b.createModule(.{
-            .root_source_file = b.path("test.bpf.zig"),
-            .target = b.resolveTargetQuery(.{
-                .cpu_arch = .bpfel,
-                .os_tag = .freestanding,
-            }),
-            .optimize = .ReleaseFast, // some assertions in debug mode are blocked by bpf verifier
-            .strip = false, // Otherwise BTF sections will be stripped
-        }),
-    });
+    const vmlinux_dep = b.dependency("vmlinux", .{});
+    const run_zig_cc = b.addRunFile(std.Build.LazyPath.zig_exe);
+    run_zig_cc.addArgs(&.{ "cc", "-g", "-O2" });
+    run_zig_cc.addArgs(&.{ "-target", "bpfel-freestanding" });
+    run_zig_cc.addArgs(&.{"-D__TARGET_ARCH_x86"});
+    run_zig_cc.addDirectoryArg2(libbpf.getEmittedIncludeTree(), .{ .prefix = "-I" });
+    run_zig_cc.addDirectoryArg2(vmlinux_dep.path("include/x86"), .{ .prefix = "-I" });
+    run_zig_cc.addArg("-c");
+    run_zig_cc.addFileArg(b.path("test.bpf.c"));
+    const obj_path = run_zig_cc.addOutputFileArg2("test.bpf.o", .{ .prefix = "-o" });
+    run_zig_cc.expectExitCode(0);
 
     const translate_c = b.addTranslateC(.{
         .root_source_file = b.path("c.h"),
@@ -119,7 +118,7 @@ pub fn build(b: *std.Build) void {
     translate_c.addIncludePath(libbpf.getEmittedIncludeTree());
 
     const options = b.addOptions();
-    options.addOptionPath("path", prog.getEmittedBin());
+    options.addOptionPath("path", obj_path);
     const exe_test = b.addTest(.{
         .root_module = b.createModule(.{
             .root_source_file = b.path("test.zig"),
