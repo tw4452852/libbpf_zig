@@ -71,7 +71,7 @@ pub fn build(b: *std.Build) void {
     libbpf.root_module.linkLibrary(libz_dep.artifact("z"));
     libbpf.root_module.linkLibrary(libelf_dep.artifact("elf"));
 
-    libbpf.installHeadersDirectory(upstream.path("src"), "", .{
+    libbpf.installHeadersDirectory(upstream.path("src"), "bpf", .{
         .include_extensions = &.{
             "bpf.h",
             "libbpf.h",
