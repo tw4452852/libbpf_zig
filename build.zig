@@ -73,19 +73,7 @@ pub fn build(b: *std.Build) void {
 
     libbpf.installHeadersDirectory(upstream.path("src"), "bpf", .{
         .include_extensions = &.{
-            "bpf.h",
-            "libbpf.h",
-            "btf.h",
-            "libbpf_common.h",
-            "libbpf_legacy.h",
-            "bpf_helpers.h",
-            "bpf_helper_defs.h",
-            "bpf_tracing.h",
-            "bpf_endian.h",
-            "bpf_core_read.h",
-            "skel_internal.h",
-            "libbpf_version.h",
-            "usdt.bpf.h",
+            ".h",
         },
     });
     libbpf.installHeadersDirectory(upstream.path("include/uapi/linux"), "linux", .{
